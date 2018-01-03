@@ -140,13 +140,6 @@ public class MainActivity extends AppCompatActivity implements
         Class destinationClass = ProductDetails.class;
         Intent intentToStartProductDetailsActivity = new Intent(context, destinationClass);
 
-//        Iterator it = product.productDetails.entrySet().iterator();
-//        while(it.hasNext()) {
-//            Map.Entry<String, String> entry = (Map.Entry) it.next();
-//            intentToStartProductDetailsActivity.putExtra(entry.getKey(), entry.getValue());
-//        }
-
-//        intentToStartProductDetailsActivity.putExtra("image", product.image);
         intentToStartProductDetailsActivity.putExtra("product", product);
         startActivity(intentToStartProductDetailsActivity);
     }

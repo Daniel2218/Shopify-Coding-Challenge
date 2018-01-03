@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,7 @@ import java.util.HashMap;
  */
 
 public class Products {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private ArrayList<Product> products;
 
     public Products(JSONObject json) {
@@ -46,11 +48,12 @@ public class Products {
             images = item.getJSONArray("images");
             src = images.getJSONObject(0).getString("src");
 
-            productDetails.put("title", item.getString("title"));
-            productDetails.put("desc", item.getString("body_html"));
-            productDetails.put("vendor", item.getString("vendor"));
-            productDetails.put("tags", item.getString("tags"));
-            productDetails.put("productType", item.getString("product_type"));
+            productDetails.put("Title", item.getString("title"));
+            productDetails.put("Description", item.getString("body_html"));
+            productDetails.put("Vendor", item.getString("vendor"));
+            Log.i(TAG, item.getString("tags"));
+            productDetails.put("Tags", item.getString("tags"));
+            productDetails.put("Product Type", item.getString("product_type"));
 
             this.products.add(new Product(productDetails, saveImageAsBitmap(src)));
         }
@@ -73,7 +76,7 @@ public class Products {
         return this.products;
     }
 
-    class Product implements Parcelable {
+    static class Product implements Parcelable {
         public HashMap<String,String> productDetails;
         public Bitmap image;
 
@@ -84,9 +87,10 @@ public class Products {
 
         protected Product(Parcel in) {
             image = in.readParcelable(Bitmap.class.getClassLoader());
+            productDetails = (HashMap) in.readSerializable();
         }
 
-        public final Creator<Product> CREATOR = new Creator<Product>() {
+        public static final Creator<Product> CREATOR = new Creator<Product>() {
             @Override
             public Product createFromParcel(Parcel in) {
                 return new Product(in);
@@ -105,7 +109,7 @@ public class Products {
 
         @Override
         public void writeToParcel(Parcel parcel, int i) {
-            this.image.writeToParcel(parcel, i);
+            parcel.writeParcelable(this.image, i);
             parcel.writeSerializable(this.productDetails);
         }
     }

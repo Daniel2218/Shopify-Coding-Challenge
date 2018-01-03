@@ -64,8 +64,8 @@ public class ShopifyDataAdapter extends RecyclerView.Adapter<ShopifyDataAdapter.
         Products.Product product = shopifyData.getProducts().get(position);
         HashMap<String,String> productDetails = product.productDetails;
 
-        holder.mProductTextView.setText(productDetails.get("title"));
-        holder.mProductDescTextView.setText(productDetails.get("desc"));
+        holder.mProductTextView.setText(productDetails.get("Title"));
+        holder.mProductDescTextView.setText(productDetails.get("Description"));
 
         Bitmap bitmap = product.image;
         holder.mProductImageView.setImageBitmap(bitmap);
