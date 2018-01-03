@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Shopify Challenge</string>
+    <string name="error_message">A network error has occurred, please try again later. </string>
+</resources>
